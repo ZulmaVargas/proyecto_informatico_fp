@@ -13,12 +13,18 @@ include 'conexion.php';// Incluye el archivo de conexión a la base de datos
 
         $sql_usuario = "SELECT * FROM usuarios WHERE nombre = '$username'";
         $result = $conn->query($sql_usuario); 
-        $sql_usuario = "SELECT * FROM usuarios WHERE email = '$email'";
-        $result2 = $conn->query($sql_usuario); 
+
+        $sql_usuario2 = "SELECT * FROM usuarios WHERE email = '$email'";
+        $result2 = $conn->query($sql_usuario2); 
 
         // Comprobar si hay resultados
         if($result->num_rows > 0){
             echo "<div class='alert alert-danger mt-3'>Usuario ya existente en la base de datos</div>" ;
+            exit; //Asegúrate de usar exit después de header
+        }
+
+        if($result2->num_rows > 0){
+            echo "<div class='alert alert-danger mt-3'>Correo electronico ya existente en la base de datos</div>" ;
             exit; //Asegúrate de usar exit después de header
         }
 

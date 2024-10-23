@@ -53,7 +53,7 @@ include 'conexion.php'
         //Verifico que me este trayendo un usuario
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
-            if (password_verify($password, $user['password'])) {
+            if (password_verify($password, $user['contraseña'])) {
                 //Estoy asignando un usuario a la sesión
                 $_SESSION['username'] = $username;
                 header("Location: dashboard.php");
