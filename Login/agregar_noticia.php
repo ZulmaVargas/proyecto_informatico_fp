@@ -1,6 +1,6 @@
 <?php
 // Incluir el archivo de conexión a la base de datos
-include 'conexion.php';
+include '../conexion.php';
 
 // Ejecutar una consulta SQL para obtener todas las categorías
 $sql = "SELECT * FROM categorias";

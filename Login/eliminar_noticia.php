@@ -1,6 +1,6 @@
 <?php
 // Incluir archivo de conexión a la base de datos
-include 'conexion.php';
+include '../conexion.php';
 
 $id = $_GET['id'];
 $sql = "DELETE FROM noticias WHERE id=$id"; // Elimina la noticia selccionada
