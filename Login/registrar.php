@@ -1,5 +1,6 @@
 <?php
-include 'conexion.php';// Incluye el archivo de conexión a la base de datos
+// Incluye el archivo de conexión a la base de datos
+include 'conexion.php';
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Recibir el nombre de usuario y la contraseña del formulario
@@ -14,6 +15,7 @@ include 'conexion.php';// Incluye el archivo de conexión a la base de datos
         $sql_usuario = "SELECT * FROM usuarios WHERE nombre = '$username'";
         $result = $conn->query($sql_usuario); 
 
+        //Tengo que fijarme que el email que voy a insertar no exista
         $sql_usuario2 = "SELECT * FROM usuarios WHERE email = '$email'";
         $result2 = $conn->query($sql_usuario2); 
 
