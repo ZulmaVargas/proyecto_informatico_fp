@@ -1,6 +1,6 @@
 <?php
 // Incluye el archivo de conexión a la base de datos
-include 'conexion.php';
+include '../conexion.php';
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Recibir el nombre de usuario y la contraseña del formulario
