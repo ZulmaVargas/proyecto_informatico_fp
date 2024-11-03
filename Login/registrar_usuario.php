@@ -12,6 +12,7 @@
         <h3 class="text-center">Registrar nuevo usuario</h3>
 
         <form method="POST" action="registrar.php">
+            <input type="hidden" name="roles" value="3">
             <div class="mb-3">
                 <label for="username" class="form-label">Usuario</label>
                 <input type="text" class="form-control" id="username" name="username" required>
@@ -27,15 +28,15 @@
                 <input type="password" class="form-control" id="password" name="password" required>
                 <div id="passwordHelp" class="form-text">Ingrese una contraseña.</div>
             </div>
-            <div class="mb-3">
+            <!--<div class="mb-3">
             <label for="roles">Selecciona un rol:</label>
                 <select id="roles" name="roles">
                     <option value="1">Administrador</option>
                     <option value="2">Editor</option>
                     <option value="3">Usuario</option>
                 </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Registrarse</button>
+            </div>-->
+            <button type="submit" class="btn btn-primary">Registrar nuevo usuario</button>
         </form>
       
     </div>
