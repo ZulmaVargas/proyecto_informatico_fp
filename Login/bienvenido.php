@@ -43,7 +43,7 @@ $result = $conn->query($sql);// Ejecutar la consulta
 
 
                 </ul>
-                <a href="logout.php" class="btn btn-danger">Cerrar Sesión</a>
+                <a href=".cerrar_sessionphp" class="btn btn-danger">Cerrar Sesión</a>
 
             </div>
             </div>
@@ -65,7 +65,7 @@ $result = $conn->query($sql);// Ejecutar la consulta
 
                     </ul>
                     <a href="login.php" class="btn btn-outline-primary m-2">Iniciar Session</a>
-                    <a href="registrar.php" class="btn btn-outline-primary m-2">Registrarse</a>
+                    <a href="registrar_usuario.php" class="btn btn-outline-primary m-2">Registrarse</a>
 
 
                 </div>
