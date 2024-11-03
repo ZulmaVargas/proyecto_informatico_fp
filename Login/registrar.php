@@ -4,7 +4,7 @@ include '../conexion.php';
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Recibir el nombre de usuario y la contraseña del formulario
-
+       
         $username = $_POST['username'];
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash de la contraseña para almacenamiento seguro
         $email = $_POST['email'];
