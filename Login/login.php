@@ -1,5 +1,5 @@
 <?php
-include '../conexion.php'
+include '../conexion.php';  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +8,7 @@ include '../conexion.php'
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <title>index</title>
+    <title>Iniciar session</title>
 </head>
 <!DOCTYPE html>
 <html lang="es">
@@ -55,14 +55,31 @@ include '../conexion.php'
             $user = $result->fetch_assoc();
             if (password_verify($password, $user['contraseña'])) {
                 //Estoy asignando un usuario a la sesión
-                $_SESSION['username'] = $username;
-                $_SESSION['id'] = $user['id'];
+                $_SESSION['username'] = $username; //asigna el  nombre del usuario
+                $_SESSION['id'] = $user['id']; // asigna el id del usuario
+                $_SESSION['rol_id'] = $user["rol_id"]; // asigna el rol_id del usuario en la session
+                $rol_id = $user["rol_id"];  //variable para controlar el rol_id
+               
+                if ($rol_id == 1) {
+                    //Es administrador.     
+                    header("Location: ../Administrador/dashboard_administrador.php");
+                    exit;
+                }
+                    if($rol_id == 2){
+                        //Es editor  
+                        header("Location: ../editor/dashboard_editor.php");
+                        exit;
+                    }
+                    else{
+                    header("Location: bienvenido.php");
+                    }
                 
-                header("Location: dashboard.php");
-            } else {
+            } 
+            else {
                 echo "<div class='alert alert-danger mt-3'>Contraseña incorrecta</div>";
             }
-        } else {
+        } 
+        else {
             echo "<div class='alert alert-danger mt-3'>Usuario no encontrado</div>";
         }
     }
