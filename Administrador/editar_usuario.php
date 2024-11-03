@@ -11,7 +11,7 @@ $id = $_GET['id'];
 $sql =  "SELECT usuarios.id, usuarios.nombre AS usuarios_nombre, usuarios.email, roles.nombre AS roles_nombre 
 FROM usuarios
 INNER JOIN roles ON usuarios.rol_id = roles.id
-WHERE usuarios.id = $id " ;
+WHERE usuarios.id = $id " ;// ID del usuario selecionado
 // La consulta selecciona todos los usuarios, excepto los que tienen rol de administrador, 
 // y devuelve su ID, nombre, correo electrónico, y el nombre de su rol asociado.
 
