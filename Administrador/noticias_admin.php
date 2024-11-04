@@ -84,7 +84,7 @@ $result = $conn->query($sql);
             echo '<h6>No hay noticias para mostrar</h6>';
         } else {
             echo '
-                <table class="table mt-5">
+                <table class= "table mt-5">
                         <thead>
                             <tr>
                             <th scope="col">ID</th>
