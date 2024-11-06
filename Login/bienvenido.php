@@ -5,9 +5,19 @@ include '../conexion.php';
 // Iniciar la sesión
 session_start();
 
-// Consulta para obtener todas las noticias donde el autor sea el usuario actual
-$sql = "SELECT * FROM noticias";
-$result = $conn->query($sql);// Ejecutar la consulta
+$sql = "SELECT titulo,nombre,texto,imagen_link,noticias.id FROM `noticias` INNER JOIN categorias ON noticias.categoria_id = categorias.id";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $search = $_POST['search'];
+    //convierto lo que leo en minusculas
+    $search = strtolower($search);
+    //$sql = "SELECT * FROM noticias WHERE LOWER(titulo) LIKE '%$search%' ";SELECT * FROM noticias LEFT JOIN categorias ON noticias.categoria_id = categorias.id  WHERE LOWER(titulo) LIKE '%$search% 
+    $sql = " SELECT * FROM noticias INNER JOIN categorias ON noticias.categoria_id = categorias.id
+     WHERE LOWER(noticias.titulo) LIKE '%$search%' 
+     OR 
+        LOWER(categorias.nombre) LIKE '%$search%'
+      ";
+}
+$result = $conn->query($sql);
 
 ?>
 <!DOCTYPE html>
@@ -41,8 +51,12 @@ $result = $conn->query($sql);// Ejecutar la consulta
                         <a class="nav-link active" aria-current="page" href="dashboard.php">Dashboard</a>
                     </li>
 
-
                 </ul>
+
+                <form method="POST" action="bienvenido.php" class="d-flex">
+                    <input name="search" class="form-control me-2" type="search" placeholder="Buscar noticia" aria-label="Search">
+                    <button class="btn btn-success me-2" type="submit">Buscar</button>
+                </form>
                 <a href=".cerrar_sessionphp" class="btn btn-danger">Cerrar Sesión</a>
 
             </div>
@@ -64,8 +78,8 @@ $result = $conn->query($sql);// Ejecutar la consulta
 
 
                     </ul>
-                    <a href="login.php" class="btn btn-outline-primary m-2">Iniciar Session</a>
-                    <a href="registrar_usuario.php" class="btn btn-outline-primary m-2">Registrarse</a>
+                    <a href="login.php" class="btn btn-primary m-2">Iniciar Session</a>
+                    <a href="registrar_usuario.php" class="btn btn-primary m-2">Registrarse</a>
 
 
                 </div>
@@ -87,11 +101,11 @@ $result = $conn->query($sql);// Ejecutar la consulta
                                             <div class=\"card-body\">
                                                 <h5 class=\"card-title\">{$noticia['titulo']}</h5>
                                                 <p class=\"card-text\">{$noticia['texto']}</p>
-                                                <a href=\"#\" class=\"btn btn-primary\">Leer más...</a>
+                                                <a href=\"noticia_vista.php?id={$noticia['id']}\" class=\"btn btn-primary\">Leer más...</a>
                                             </div>
                         </div>
                     </div>
-                ";
+                    ";
                 }
             }
             ?>
