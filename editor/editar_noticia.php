@@ -9,7 +9,7 @@ session_start();
 $id = $_GET['id'];
 
 // Consulta SQL para seleccionar datos de la tabla noticias , usuarios y categorias. 
-$sql = "SELECT noticias.id, noticias.titulo, noticias.texto, noticias.imagen_link, usuarios.nombre AS autor_nombre, categorias.nombre AS categoria_nombre 
+$sql = "SELECT noticias.id, noticias.titulo, noticias.texto, noticias.imagen_link, noticias.categoria_id, usuarios.nombre AS autor_nombre, categorias.nombre AS categoria_nombre 
 FROM noticias
 INNER JOIN usuarios ON noticias.autor_id = usuarios.id INNER JOIN categorias ON noticias.categoria_id = categorias.id
 WHERE noticias.id = $id" ; // id de la noticia seleccionada 
@@ -35,7 +35,8 @@ $noticia = $result->fetch_assoc();
 
 // Ejecutar una consulta SQL para obtener todas las categorías
 $sql2 = "SELECT * FROM categorias";
-$result2 = $conn->query($sql); // Ejecutar la consulta
+$result2 = $conn->query($sql2); // Ejecutar la consulta
+
 ?>
 
 <!DOCTYPE html>
@@ -58,26 +59,27 @@ $result2 = $conn->query($sql); // Ejecutar la consulta
             <form method="POST" action="proceso_editar_noticia.php">
                 <input type="hidden" name="id" value="<?php echo $id ;?>">
                 <div class="mb-3">
-                    <label for="titulo" class="form-label">Título</label>
+                    <label for="titulo" class="form-label">Título : </label>
                     <input type="text" class="form-control" id="titulo" name="titulo" value="<?php echo $noticia['titulo']; ?>"  required>
             
                 </div>
                 <div class="mb-3">
-                    <label for="image" class="form-label">Imagen</label>
+                    <label for="image" class="form-label">Imagen : </label>
                     <input type="text" class="form-control" id="imagen" name="imagen" value="<?php echo $noticia['imagen_link']; ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="descripcion" class = "form-label">Descripción</label>
-                    <textarea name="descripcion" id="descripcion" class="form-control" rows="5" value="<?php echo $noticia['texto']; ?>" required></textarea>
+                    <label for="descripcion" class = "form-label">Descripción : </label>
+                    <textarea name="descripcion" id="descripcion" class="form-control" rows="5" required><?php echo $noticia['texto']; ?> </textarea>
                 </div>
-                <!--no se ve en el formulario la descrion ni las cetegorias-->
+                <!--no se ve en el formulario  las cetegorias-->
                 <div class = "mb-3">
-                    <label for="categoria" class="form-label">Categoria: </label>
+                    <label for="categoria" class="form-label">Categoría: </label>
                     <select id="categoria" name="categoria" class="form-select" aria-label="Default select example">
-                    <?php
+                        <?php
                         if ($result2->num_rows > 0) {
                             while ($row = $result2->fetch_assoc()) {
-                                if ($row['nombre'] === $noticia['categoria_nombre']) {
+  
+                                if ($row['id'] == $noticia['categoria_id']) {
                                     echo "<option value={$row['id']} selected>{$row['nombre']}</option>";
                                 } else {
                                     echo "<option value={$row['id']}>{$row['nombre']}</option>";
@@ -85,11 +87,9 @@ $result2 = $conn->query($sql); // Ejecutar la consulta
                             }
                         }
                         ?>
-
-
                     </select>
-                    
                 </div>
+
                 <!-- Botón para enviar el formulario -->
                 <button type="submit" class="btn mt-5 btn-primary">Guardar cambios</button>
             </form>
